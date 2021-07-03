@@ -7,8 +7,6 @@ import { Link } from 'react-router-dom'
 function PersonelList() {
     const dispatch = useDispatch()
     // https://randomuser.me/api/?results=4
-    // const [dataPersonel, loading, error] = useFetch('https://randomuser.me/api/?results=4')
-    // console.log(dataPersonel, 'HASIL DATA NYA');
     const dataPersonelEmployee = useSelector(state => state.dataPersonel) 
     console.log(dataPersonelEmployee, 'HASIL DATA');
 
