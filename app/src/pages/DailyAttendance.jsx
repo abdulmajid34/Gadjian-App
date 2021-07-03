@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function DailyAttendance() {
     return (
@@ -19,11 +20,19 @@ function DailyAttendance() {
             {/* sidebar */}
             <div className="sidebar bg-green-400 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full transition duration-200 ease-out md:relative md:translate-x-0">
                 {/* logo */}
-                <span className="text-2xl font-extrabold">Gadjian</span>
+                <Link to="/">
+                    <span className=" cursor-pointer text-2xl font-extrabold">Gadjian</span>
+                </Link>
                 <nav>
-                    <span className=" cursor-pointer block py-2.5 px-4 rounded transition duration-200 hover:bg-green-800 hover:text-white">Beranda</span>
-                    <span className=" cursor-pointer block py-2.5 px-4 transition duration-200 hover:bg-green-800 hover:text-white">Personel List</span>
-                    <span className=" cursor-pointer block py-2.5 px-4 transition duration-200 hover:bg-green-800 hover:text-white">Daily Attendance</span>
+                <Link to="/">
+                        <span className=" cursor-pointer block py-2.5 px-4 rounded transition duration-200 hover:bg-green-800 hover:text-white">Beranda</span>
+                    </Link>
+                    <Link to="/list">
+                        <span className=" cursor-pointer block py-2.5 px-4 transition duration-200 hover:bg-green-800 hover:text-white">Personel List</span>
+                    </Link>
+                    <Link to="/daily">
+                        <span className=" cursor-pointer block py-2.5 px-4 transition duration-200 hover:bg-green-800 hover:text-white">Daily Attendance</span>
+                    </Link> 
                 </nav>
             </div>
 
