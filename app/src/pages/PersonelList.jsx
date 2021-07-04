@@ -1,19 +1,46 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 // import useFetch from '../hooks/useFetch'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchDataPersonel, setLoading } from '../store/actions/action'
 import { Link } from 'react-router-dom'
+import PersonelCard from '../components/PersonelCard'
+
+// https://randomuser.me/api/?results=4
 
 function PersonelList() {
     const dispatch = useDispatch()
-    // https://randomuser.me/api/?results=4
+    const [page, setPage] = useState(1)
+    const [userData, setUserData] = useState([])
     const dataPersonelEmployee = useSelector(state => state.dataPersonel) 
-    console.log(dataPersonelEmployee, 'HASIL DATA');
+
+    const getFullName = (value) => {
+        const { name: {first, last}} = value
+        return `${first} ${last}`
+    }
 
     useEffect(() => {
         dispatch(setLoading(true))
-        dispatch(fetchDataPersonel())
-    }, [])
+        dispatch(fetchDataPersonel(page))
+
+        const newUserData = [
+            ...userData,
+            ...dataPersonelEmployee
+        ]
+        setUserData(newUserData)
+    }, [page])
+
+    const nextPage = (event) => {
+        event.preventDefault()
+        setPage(page + 1)
+    }
+    const previousPage = (event) => {
+        event.preventDefault()
+        if(page === 1) {
+            setPage(1)
+        } else {
+            setPage(page - 1)
+        }
+    }
 
     return (
         <div className="relative min-h-screen md:flex">
@@ -145,107 +172,22 @@ function PersonelList() {
 
                     <div class="w-4/5 mx-auto">
                         <div class="flex flex-col sm:flex-row">
-                        
-                        <div class="sm:w-1/4 p-2">
-                            <div class="bg-white px-6 py-8 rounded-lg shadow-lg text-center">
-                                <h3 className="mb-2">Personel ID: 989898</h3>
-                            <div class="mb-3">
-                                <img
-                                class="w-auto mx-auto rounded-full"
-                                src="https://i.pravatar.cc/150?img=66"
-                                alt=""
-                                />
-                            </div>
-                            <h1 className="font-medium text-black">Nama</h1>
-                            <h2 class="text-xl font-medium text-gray-700">Pande Muliada</h2>
-                            <span className="font-medium text-black">Telephone</span>
-                            <h2 class="text-xl font-medium text-gray-700">089998677876</h2>
-                            <span className="font-medium text-black">Birthday</span>
-                            <h2 class="text-xl font-medium text-gray-700">03-05-2002</h2>
-                            <span className="font-medium text-black">Email</span>
-                            <h2 class="text-xl font-medium text-gray-700">blablabla@mail.com</h2>
-                            </div>
+                            {
+                                userData.map((value, idx) => <PersonelCard key={idx} getFullName={getFullName(value)} dataPersonel={value} /> )
+                            }
+                   </div>
                         </div>
 
-                        
-                        <div class="sm:w-1/4 p-2">
-                            <div class="bg-white px-6 py-8 rounded-lg shadow-lg text-center">
-                            <h3 className="mb-2">Personel ID: 989898</h3>
-                            <div class="mb-3">
-                                <img
-                                class="w-auto mx-auto rounded-full"
-                                src="https://i.pravatar.cc/150?img=31"
-                                alt=""
-                                />
-                            </div>
-                            <h1 className="font-medium text-gray-800">Nama:</h1>
-                            <h2 class="text-xl font-medium text-gray-700">Saraswati Cahyati</h2>
-                            <span className="font-medium text-black">Telephone</span>
-                            <h2 class="text-xl font-medium text-gray-700">089998677876</h2>
-                            <span className="font-medium text-black">Birthday</span>
-                            <h2 class="text-xl font-medium text-gray-700">03-05-2002</h2>
-                            <span className="font-medium text-black">Email</span>
-                            <h2 class="text-xl font-medium text-gray-700">blablabla@mail.com</h2>
-                            </div>
-                        </div>
-
-                        
-                        <div class="sm:w-1/4 p-2">
-                            <div class="bg-white px-6 py-8 rounded-lg shadow-lg text-center">
-                            <h3 className="mb-2">Personel ID: 989898</h3>
-                            <div class="mb-3">
-                                <img
-                                class="w-auto mx-auto rounded-full"
-                                src="https://i.pravatar.cc/150?img=18"
-                                alt=""
-                                />
-                            </div>
-                            <h1 className="font-medium text-gray-800">Nama:</h1>
-                            <h2 class="text-xl font-medium text-gray-700">Wayan Alex</h2>
-                            <span className="font-medium text-black">Telephone</span>
-                            <h2 class="text-xl font-medium text-gray-700">089998677876</h2>
-                            <span className="font-medium text-black">Birthday</span>
-                            <h2 class="text-xl font-medium text-gray-700">03-05-2002</h2>
-                            <span className="font-medium text-black">Email</span>
-                            <h2 class="text-xl font-medium text-gray-700">blablabla@mail.com</h2>
-                           
-
-                            </div>
-                        </div>
-
-                        
-                        <div class="sm:w-1/4 p-2">
-                            <div class="bg-white px-6 py-8 rounded-lg shadow-lg text-center">
-                            <h3 className="mb-2">Personel ID: 989898</h3>
-                            <div class="mb-3">
-                                <img
-                                class="w-auto mx-auto rounded-full"
-                                src="https://i.pravatar.cc/150?img=28"
-                                alt=""
-                                />
-                            </div>
-                            <h1 className="font-medium text-gray-800">Nama:</h1>
-                            <h2 class="text-xl font-medium text-gray-700">Ketut Julia</h2>
-                            <span className="font-medium text-black">Telephone</span>
-                            <h2 class="text-xl font-medium text-gray-700">089998677876</h2>
-                            <span className="font-medium text-black">Birthday</span>
-                            <h2 class="text-xl font-medium text-gray-700">03-05-2002</h2>
-                            <span className="font-medium text-black">Email</span>
-                            <h2 class="text-xl font-medium text-gray-700">blablabla@mail.com</h2>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
 
                     <div class="flex justify-center mt-4 mb-4">
                         <div class="m-3">
-                            <button
+                            <button type="button" onClick={(event) => previousPage(event)}
                             class="w-32 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-blue-500 hover:border-blue-600 hover:bg-blue-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
                             <span class="mx-auto">Previous</span>
                             </button>
                         </div>
                         <div class="m-3">
-                            <button
+                            <button type="button" onClick={(event) => nextPage(event)}
                             class="w-32 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
                             <span class="mx-auto">Next</span>
 

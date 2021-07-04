@@ -16,9 +16,9 @@ export function setError(payload) {
 
 // API = https://randomuser.me/api/?results=4
 
-export function fetchDataPersonel() {
+export function fetchDataPersonel(page) {
     return (dispatch) => {
-        fetch(`https://randomuser.me/api/?results=4`)
+        fetch(`https://randomuser.me/api/?results=4&page=${page}`)
         .then((res) => res.json())
         .then((data) => {
             console.log(data, 'INI HASIL DATA DI ACTION');
