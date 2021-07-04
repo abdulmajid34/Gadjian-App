@@ -2,7 +2,11 @@ import React from 'react'
 
 
 function PersonelCard(props) {
-    console.log(props, 'INI DATA nya');
+
+    // const getBirthday = (value) => {
+    //     let result = value.toLocaleString().split(',')['T']
+    //     return result
+    // }
 
     // const getBirthdate = () => {
     //     let year = dataPersonel.dob.date.getFullYear();

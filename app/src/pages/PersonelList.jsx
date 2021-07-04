@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import useFetch from '../hooks/useFetch'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchDataPersonel, setLoading } from '../store/actions/action'
 import { Link } from 'react-router-dom'
@@ -12,7 +11,6 @@ function PersonelList() {
     const [page, setPage] = useState(1)
     const [showModal, setShowModal] = useState(false)
     const dataPersonelEmployee = useSelector(state => state.dataPersonel) 
-    console.log(dataPersonelEmployee, 'SEMUA DATA');
 
     const getFullName = (value) => {
         const { name: {first, last}} = value
@@ -20,14 +18,9 @@ function PersonelList() {
     }
 
     useEffect(() => {
-        // const newUserData = [
-        //     ...userData,
-        //     ...dataPersonelEmployee
-        // ]
-        // setUserData(newUserData)
-
         dispatch(setLoading(true))
         dispatch(fetchDataPersonel(page))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
 
     const nextPage = (event) => {
@@ -176,7 +169,6 @@ function PersonelList() {
                         </div>
                         </div>
                     </main>
-
                     <div class="w-4/5 mx-auto">
                         <div class="flex flex-col sm:flex-row">
                             {
