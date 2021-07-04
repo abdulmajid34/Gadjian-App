@@ -6,7 +6,6 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import Dash from './template/Dash';
 import Beranda from './pages/Beranda';
 import DailyAttendance from './pages/DailyAttendance';
 
@@ -23,7 +22,6 @@ function App() {
           </Route>
           <Route exact path="/">
             <Beranda />
-            {/* <Dash /> */}
           </Route>
         </Switch>
       </Router>

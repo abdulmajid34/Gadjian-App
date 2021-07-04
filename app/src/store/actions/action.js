@@ -21,7 +21,6 @@ export function fetchDataPersonel(page) {
         fetch(`https://randomuser.me/api/?results=4&page=${page}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data, 'INI HASIL DATA DI ACTION');
             dispatch(dataPersonel(data.results))
         })
         .catch((err) => {

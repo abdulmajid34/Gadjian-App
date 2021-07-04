@@ -4,14 +4,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchDataPersonel, setLoading } from '../store/actions/action'
 import { Link } from 'react-router-dom'
 import PersonelCard from '../components/PersonelCard'
+import AddPersonel from './AddPersonel'
 
 // https://randomuser.me/api/?results=4
-
 function PersonelList() {
     const dispatch = useDispatch()
     const [page, setPage] = useState(1)
-    const [userData, setUserData] = useState([])
+    const [showModal, setShowModal] = useState(false)
     const dataPersonelEmployee = useSelector(state => state.dataPersonel) 
+    console.log(dataPersonelEmployee, 'SEMUA DATA');
 
     const getFullName = (value) => {
         const { name: {first, last}} = value
@@ -19,18 +20,18 @@ function PersonelList() {
     }
 
     useEffect(() => {
+        // const newUserData = [
+        //     ...userData,
+        //     ...dataPersonelEmployee
+        // ]
+        // setUserData(newUserData)
+
         dispatch(setLoading(true))
         dispatch(fetchDataPersonel(page))
-
-        const newUserData = [
-            ...userData,
-            ...dataPersonelEmployee
-        ]
-        setUserData(newUserData)
     }, [page])
 
     const nextPage = (event) => {
-        event.preventDefault()
+        
         setPage(page + 1)
     }
     const previousPage = (event) => {
@@ -153,19 +154,25 @@ function PersonelList() {
                             </div>
     
                             <div class="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-                                <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-green-400">
+                                <div onClick={() => setShowModal(true)} class="flex items-center px-5 py-6 shadow-sm rounded-md bg-green-400 cursor-pointer hover:bg-green-800">
                                     <div class="p-3 rounded-full bg-white bg-opacity-75">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                     </svg>
                                     </div>
-    
                                     <div class="mx-5">
                                         <h4 class="text-2xl font-semibold text-white">Add Personel</h4>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {
+                                showModal ? (
+                                    <>
+                                        <AddPersonel setShowModal={() => setShowModal(!showModal)} />
+                                    </>
+                                ) : null
+                            }
                         </div>
                         </div>
                     </main>
@@ -173,25 +180,49 @@ function PersonelList() {
                     <div class="w-4/5 mx-auto">
                         <div class="flex flex-col sm:flex-row">
                             {
-                                userData.map((value, idx) => <PersonelCard key={idx} getFullName={getFullName(value)} dataPersonel={value} /> )
+                                dataPersonelEmployee.map((value, idx) => <PersonelCard key={idx} getFullName={getFullName(value)} dataPersonel={value}  /> )
                             }
                    </div>
                         </div>
 
 
                     <div class="flex justify-center mt-4 mb-4">
+                        <span>
+                            {
+                                page.index
+                            }
+                        </span>
                         <div class="m-3">
-                            <button type="button" onClick={(event) => previousPage(event)}
-                            class="w-32 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-blue-500 hover:border-blue-600 hover:bg-blue-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-                            <span class="mx-auto">Previous</span>
-                            </button>
+                            {
+                                page === 1 ? (
+                                    <>
+                                        <button type="button" onClick={(event) => previousPage(event)} disabled
+                                        class="w-32 bg-gray-700 tracking-wide text-gray-800 font-bold rounded border-b-2 border-blue-500 shadow-md py-2 px-6 inline-flex items-center">
+                                        <span class="mx-auto">Previous</span>
+                                        </button>
+                                    </>
+                                ) : 
+                                    <button type="button" onClick={(event) => previousPage(event)}
+                                    class="w-32 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-blue-500 hover:border-blue-600 hover:bg-blue-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                                    <span class="mx-auto">Previous</span>
+                                    </button>
+                            }
                         </div>
                         <div class="m-3">
-                            <button type="button" onClick={(event) => nextPage(event)}
-                            class="w-32 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-                            <span class="mx-auto">Next</span>
-
-                            </button>
+                            {
+                                page === 12 ? (
+                                    <>
+                                        <button type="button" onClick={(event) => nextPage(event)} disabled
+                                        class="w-32 bg-gray-700 tracking-wide text-gray-800 font-bold rounded border-b-2 border-green-500 shadow-md py-2 px-6 inline-flex items-center">
+                                        <span class="mx-auto">Next</span>
+                                        </button>
+                                    </>
+                                ) : 
+                                <button type="button" onClick={(event) => nextPage(event)} 
+                                class="w-32 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                                <span class="mx-auto">Next</span>
+                                </button>
+                            }
                         </div>
                     </div>
             </div>
