@@ -23,10 +23,11 @@ function App() {
           </Route>
           <Route exact path="/">
             <Beranda />
+            {/* <Dash /> */}
           </Route>
         </Switch>
       </Router>
-      {/* <Dash /> */}
+      
     </div>
   );
 }
