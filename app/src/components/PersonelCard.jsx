@@ -4,7 +4,7 @@ import React from 'react'
 function PersonelCard(props) {
 
     // const getBirthday = (value) => {
-    //     let result = value.toLocaleString().split(',')['T']
+    //     let result = value.toLocaleString().split('T')
     //     return result
     // }
 

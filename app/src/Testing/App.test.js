@@ -1,4 +1,3 @@
-
 import App from '../App'
 import PersonelList from '../pages/PersonelList';
 
@@ -14,13 +13,6 @@ import PersonelList from '../pages/PersonelList';
 //     expect(handleClick).toHaveBeenClledTimes(1)
   
 // });
-
-// test('button pagination previous', () => {
-//     render(<PersonelList />);
-
-//     const buttonPrev = screen.getByRole("button")
-//     expect(buttonPrev).toHaveTextContent("Previous")
-// })
 
 // test('link router testing', () => {
 //     render(<App />);
